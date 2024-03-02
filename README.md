@@ -2,5 +2,6 @@
 
 # Install Dependencies
 
---> Node Modules
---> Next JS
+1. Node Modules
+2. Next JS
+3. Tailwind
