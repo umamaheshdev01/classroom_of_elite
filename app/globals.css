@@ -3,3 +3,12 @@
 @tailwind utilities;
 
 
+.signup-form {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .background-beams {
+    position: absolute;
+    z-index: 1;
+  }
