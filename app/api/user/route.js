@@ -3,10 +3,7 @@ import { NextResponse,NextRequest } from "next/server"
 
 export const  GET = async(req,res)=>{
 
-
-
     const {data,error} = await supabase.from('Users').select('*')
-
     if(error){
         return NextResponse.json({msg:'Error'})
     }
