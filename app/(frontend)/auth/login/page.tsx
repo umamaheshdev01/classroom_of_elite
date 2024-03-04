@@ -1,9 +1,28 @@
+'use client'
 import React from 'react'
 
 
 import { BackgroundBeams } from '../../../components/ui/Beams'
 import { LoginFormDemo } from '../login/Login'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 const page = () => {
+
+
+  const {status} = useSession()
+  const router = useRouter()
+
+  if(status==='authenticated')
+  {
+        router.push('/main')
+  }
+  
+
+
+
+
+
+
   return (
 
     <div className="h-[100vh] w-full  bg-opacity-60 bg-black relative flex flex-col items-center justify-center antialized">

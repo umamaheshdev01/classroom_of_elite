@@ -10,15 +10,45 @@ const authOptions = {
         password: { label: 'Password', placeholder: 'Enter Password' },
       },
       async authorize(credentials, req) {
-        // const user = {name : 'uma',email : credentials.email};
-        if (user) { 
-          return user
-        } else {
-          return null
+
+
+       
+        try {
+          const url = `http://localhost:3000/api/user/${credentials.email}`;
+          const response = await fetch(url);
+          
+          if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+          }
+          
+          const data = await response.json();
+
+          const result = data[0]
+
+          if (result.password === credentials.password) {
+            return result;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          return null;
         }
+
+
+
+
+
+
+
+
+
+        
+       
       },
     }),
   ],
+
+  secret: '12321333'
 };
 
 const handler = NextAuth(authOptions);
