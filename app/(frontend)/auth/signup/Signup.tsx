@@ -9,12 +9,39 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function SignupFormDemo() {
+  
+  const router = useRouter()
   const [email,setEmail] = useState();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+   
+
+    //post request //http://localhost:3000/api/user/
+
+    //{
+//   "name" : "Manvi",
+//   "lname" : "Girl",
+//   "email" : "king@gmail.com",
+//   "password" : "123manvi@12"
+// }
+   
+
+
+
+
+
+
+
+
+
+
+
+
     const response = await signIn("credentials", {
       email: email,
       password: password,
@@ -47,7 +74,7 @@ export function SignupFormDemo() {
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input id="email" placeholder="projectmayhem@fc.com" type="email" onChange={e=>setEmail(e.target.value)} />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>

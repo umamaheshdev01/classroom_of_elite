@@ -1,18 +1,10 @@
-'use client'
-import React, { useState } from 'react'
+
+import React from 'react'
 import { SignupFormDemo } from './Signup'
 
 import { BackgroundBeams } from '../../../components/ui/Beams'
 import { LoginFormDemo } from '../login/Login'
-const page = () => 
-
- 
-
-
-
-
-
-
+const page = () => {
 
 
 
