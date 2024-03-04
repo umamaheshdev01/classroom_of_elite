@@ -23,18 +23,19 @@ export const  POST= async(req,res)=>{
     const data = await req.json()
 
     const data1 ={
-        uid : data.uid,
+        Lname : data.lname,
         email : data.email,
-        name : data.name
+        name : data.name,
+        password : data.password
     }
 
-    const { error } = await supabase.from('Users').insert(data)
+    const { error } = await supabase.from('Users').insert(data1)
 
     if(error){
-        return NextResponse.json({msg:error})
+        return NextResponse.json({msg:error},{status:500})
     }
     else{
-        return NextResponse.json({msg:'Done'})
+        return NextResponse.json({msg:'Done'},{status:200})
     }
     
 }
