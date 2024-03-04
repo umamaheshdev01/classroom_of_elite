@@ -11,9 +11,20 @@ import {
 import Link from "next/link";
 
 export function SignupFormDemo() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [email,setEmail] = useState();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    const response = await signIn("credentials", {
+      email: email,
+      password: password,
+      redirect: false,
+    });
+
+    if(response.ok)
+    {
+        router.push('/main')
+    }
   };
   return (
     

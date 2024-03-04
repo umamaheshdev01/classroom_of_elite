@@ -6,21 +6,7 @@ import { BackgroundBeams } from '../../../components/ui/Beams'
 import { LoginFormDemo } from '../login/Login'
 const page = () => 
 
-  const [email,setEmail] = useState();
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const response = await signIn("credentials", {
-      email: email,
-      password: password,
-      redirect: false,
-    });
-
-    if(response.ok)
-    {
-        router.push('/main')
-    }
-  };
+ 
 
 
 
