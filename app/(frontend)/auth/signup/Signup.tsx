@@ -10,25 +10,52 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export function SignupFormDemo() {
   
   const router = useRouter()
-  const [email,setEmail] = useState();
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const [fname,setFname] = useState('');
+  const [lname,setLname] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
    
 
-    //post request //http://localhost:3000/api/user/
+    const url ='http://localhost:3000/api/user'
 
-    //{
-//   "name" : "Manvi",
-//   "lname" : "Girl",
-//   "email" : "king@gmail.com",
-//   "password" : "123manvi@12"
-// }
+  const datapack={
+   name : fname,
+  lname : lname ,
+  email : email ,
+  password: password
+}
+
+fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(datapack),
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(dat => 
+     
+    signIn("credentials", { email: email, password: password, redirect: false }))
+  .then(res => {
+    if (res.ok) router.push('/main');
+  })
+  .catch(error => console.error(error));
+
    
 
 
@@ -42,16 +69,7 @@ export function SignupFormDemo() {
 
 
 
-    const response = await signIn("credentials", {
-      email: email,
-      password: password,
-      redirect: false,
-    });
-
-    if(response.ok)
-    {
-        router.push('/main')
-    }
+    
   };
   return (
     
@@ -65,20 +83,26 @@ export function SignupFormDemo() {
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer >
             <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
+            <Input id="firstname" placeholder="Tyler" type="text" value={fname} onChange={e=>setFname(e.target.value)}   />
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
+            <Input id="lastname" placeholder="Durden" type="text" value={lname} 
+            onChange={e=>setLname(e.target.value)} />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" onChange={e=>setEmail(e.target.value)} />
+          <Input 
+          id="email"
+          placeholder="projectmayhem@fc.com"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}  />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input id="password" placeholder="••••••••" type="password" value={password} onChange={e=>setPassword(e.target.value)}  />
         </LabelInputContainer>
         {/* <LabelInputContainer className="mb-8">
           <Label htmlFor="twitterpassword">Your twitter password</Label>

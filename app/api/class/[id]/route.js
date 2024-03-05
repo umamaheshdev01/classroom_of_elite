@@ -7,9 +7,9 @@ import { NextResponse } from "next/server"
 
 export const GET = async(req,{params},res)=>{
      
-    //getUserWithUid
-    const id = params.users
-    const {data,error} = await supabase.from('Users').select('*').eq('uid',id)
+    //getClasswithcode
+    const id = params.id
+    const {data,error} = await supabase.from('Class').select('*').eq('code',id)
     
     if(error){
         return NextResponse.json({error},{status:500})
@@ -22,31 +22,31 @@ export const GET = async(req,{params},res)=>{
 
 export const DELETE = async(req,{params},res)=>{
 
-    //deleteUserWithUid
-    const id = params.users
-    const {data,error} = await supabase.from('Users').delete().eq('uid',id)
+    //deleteClassWithCode
+    const id = params.id
+    const {data,error} = await supabase.from('Class').delete().eq('code',id)
 
     if(error){
         return NextResponse.json({error},{status:500})
     }
     else{
-        return NextResponse.json({mgs:'User Deleted'},{status:200})
+        return NextResponse.json({mgs:'Class Deleted'},{status:200})
     }
 }
 
 
 export const PATCH = async(req,{params},res)=>{
 
-    //updateUserwithUid
-    const id = params.users
+    //updateClasswithcode
+    const id = params.id
     const value = await req.json()
-    const {data,error} = await supabase.from('Users').update(value).eq('uid',id)
+    const {data,error} = await supabase.from('Class').update(value).eq('code',id)
 
     if(error){
         return NextResponse.json({error},{status:500})
     }
     else{
-        return NextResponse.json({mgs:'User Updated'},{status:200})
+        return NextResponse.json({mgs:'Class Updated'},{status:200})
     }
 
 }

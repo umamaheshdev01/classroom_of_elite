@@ -1,12 +1,23 @@
-
+'use client'
 import React from 'react'
 import { SignupFormDemo } from './Signup'
 
 import { BackgroundBeams } from '../../../components/ui/Beams'
 import { LoginFormDemo } from '../login/Login'
+import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 const page = () => {
+  
+  
 
+  const {status} = useSession()
+  const router = useRouter()
 
+  if(status==='authenticated')
+  {
+        router.push('/main')
+  }
+  
 
 
 
