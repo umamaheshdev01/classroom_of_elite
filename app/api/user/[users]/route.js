@@ -7,9 +7,12 @@ import { NextResponse } from "next/server"
 
 export const GET = async(req,{params},res)=>{
      
-    //getUserWithUid
+    //getUserWithemail
     const id = params.users
-    const {data,error} = await supabase.from('Users').select('*').eq('uid',id)
+
+    const {data,error} = await supabase.from('Users').select('*').eq('email',id)
+
+
     
     if(error){
         return NextResponse.json({error},{status:500})

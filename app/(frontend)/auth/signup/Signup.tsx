@@ -14,6 +14,10 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 
 export function SignupFormDemo() {
+
+  const validateForm = () => {
+    return fname.trim() !== '' && lname.trim() !== '' && email.trim() !== '' && password.trim() !== '';
+  };
   
   const router = useRouter()
   const [email,setEmail] = useState('');
@@ -21,54 +25,47 @@ export function SignupFormDemo() {
   const [fname,setFname] = useState('');
   const [lname,setLname] = useState('');
 
+  const [load,setLoad] = useState(false)
+  const [error,setError] = useState(false)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+    if(!validateForm) throw new Error(`not validated`)
+    
     e.preventDefault();
+    
+    setLoad(true);
 
-   
+    const url = 'http://localhost:3000/api/user';
 
-    const url ='http://localhost:3000/api/user'
+    const datapack = {
+      fname: fname,
+      lname: lname,
+      email: email,
+      password: password,
+    };
 
-  const datapack={
-   name : fname,
-  lname : lname ,
-  email : email ,
-  password: password
-}
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datapack),
+      });
 
-fetch(url, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(datapack),
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(dat => 
-     
-    signIn("credentials", { email: email, password: password, redirect: false }))
-  .then(res => {
-    if (res.ok) router.push('/main');
-  })
-  .catch(error => console.error(error));
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-   
+      await signIn('credentials', { email: email, password: password, redirect: false });
 
-
-
-
-
-
-
-
-
-
-
-
+      router.push('/main');
+    } catch (error) {
+      console.error(error);
+      setError(true)
+      setLoad(false)
+    } 
     
   };
   return (
@@ -77,9 +74,14 @@ fetch(url, {
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Sign Up
       </h2>
-      
 
-      <form  className="  my-8" onSubmit={handleSubmit}>
+{  error &&
+      <p className="text-red text-sm max-w-sm mt-2   dark:text-red-600">
+        <Link href='/auth/login'>Enter valid details !</Link>
+      </p>
+}   
+
+      <form  className="  my-6" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer >
             <Label htmlFor="firstname">First name</Label>
@@ -104,23 +106,21 @@ fetch(url, {
           <Label htmlFor="password">Password</Label>
           <Input id="password" placeholder="••••••••" type="password" value={password} onChange={e=>setPassword(e.target.value)}  />
         </LabelInputContainer>
-        {/* <LabelInputContainer className="mb-8">
-          <Label htmlFor="twitterpassword">Your twitter password</Label>
-          <Input
-            id="twitterpassword"
-            placeholder="••••••••"
-            type="twitterpassword"
-          />
-        </LabelInputContainer> */}
+       
 
         <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
-        >
-          Sign up &rarr;
-          <BottomGradient />
-        </button>
+      className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+      type="submit"
+    >
+      {load ? 'Signing Up...' : 'Sign up →'}
+      <BottomGradient />
+    </button>
+
+
+
         <br></br>
+
+        
 
         <p className="text-neutral-600 text-sm max-w-sm mt-2 ml-2 dark:text-neutral-300">
         <Link href='/auth/login'>Already a user?</Link>
@@ -128,38 +128,7 @@ fetch(url, {
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
-        {/* <div className="flex flex-col space-y-4">
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              GitHub
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              Google
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              OnlyFans
-            </span>
-            <BottomGradient />
-          </button>
-        </div> */}
+        
       </form>
     </div>
     

@@ -17,7 +17,7 @@ export function MainNav() {
       <Link href="/" className="mr-6 flex items-center space-x-2">
         <Icons.logo className="h-6 w-6" />
         <span className="hidden font-bold sm:inline-block">
-          Uma Mahesh
+          Classroom
         </span>
       </Link>
       <nav className="flex items-center gap-6 text-sm">
@@ -28,7 +28,7 @@ export function MainNav() {
             pathname === "/docs" ? "text-foreground" : "text-foreground/60"
           )}
         >
-          Profile
+        
         </Link>
         <Link
           href="/docs/components"
@@ -39,7 +39,7 @@ export function MainNav() {
               : "text-foreground/60"
           )}
         >
-          Leaderboard
+       
         </Link>
         <Link
           href="/themes"
@@ -50,7 +50,7 @@ export function MainNav() {
               : "text-foreground/60"
           )}
         >
-          Help
+          
         </Link>
         <Link
           href="/examples"
@@ -61,7 +61,7 @@ export function MainNav() {
               : "text-foreground/60"
           )}
         >
-          Examples
+        
         </Link>
         <Link
           href=''
@@ -69,7 +69,7 @@ export function MainNav() {
             "hidden text-foreground/60 transition-colors hover:text-foreground/80 lg:block"
           )}
         >
-          GitHub
+        
         </Link>
       </nav>
     </div>

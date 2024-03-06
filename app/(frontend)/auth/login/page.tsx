@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import { BackgroundBeams } from '../../../components/ui/Beams'
@@ -8,15 +8,17 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 const page = () => {
 
-
-  const {status} = useSession()
   const router = useRouter()
+  const { status } = useSession()
+  const [load, setLoad] = useState(false)
 
-  if(status==='authenticated')
-  {
-        router.push('/main')
-  }
-  
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/main')
+    }
+
+    setLoad(true)
+  }, [status, router])
 
 
 
@@ -29,8 +31,7 @@ const page = () => {
     
     <div className='w-[50%] z-50'>
 
-    {/* <SignupFormDemo ></SignupFormDemo> */}
-    <LoginFormDemo></LoginFormDemo>
+   {load && <LoginFormDemo></LoginFormDemo>}    
     </div>
     
 

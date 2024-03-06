@@ -23,10 +23,16 @@ const authOptions = {
           
           const data = await response.json();
 
-          const result = data[0]
+          const dam = JSON.stringify(data)
 
-          if (result.password === credentials.password) {
-            return result;
+          const result = JSON.parse(dam.slice(9,-2))
+
+          const user = {
+            email : result.uid
+          }
+
+          if (result.password == credentials.password) {
+            return user;
           } else {
             return null;
           }
