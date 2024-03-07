@@ -21,7 +21,7 @@ export default function BentoGridDemo() {
           description={item.description}
           header={item.header}
           icon={item.icon}
-          className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+          // className={i === 3 || i === 6 ? "md:col-span-2" : ""}
         />
       ))}
     </BentoGrid>
@@ -32,39 +32,39 @@ const Skeleton = () => (
 );
 const items = [
   {
-    title: "The Dawn of Innovation",
-    description: "Explore the birth of groundbreaking ideas and inventions.",
+    title: "Discrete Mathematics",
+    description: "MAIC 201",
     header: <Skeleton />,
     icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Digital Revolution",
-    description: "Dive into the transformative power of technology.",
+    title: "Programming with Python",
+    description: "ITPC 203",
     header: <Skeleton />,
     icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Art of Design",
-    description: "Discover the beauty of thoughtful and functional design.",
+    title: "Design and Analysis of Algorithm",
+    description: "ITPC 25",
     header: <Skeleton />,
     icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Power of Communication",
+    title: "Economics",
     description:
-      "Understand the impact of effective communication in our lives.",
+      "HSIC 21",
     header: <Skeleton />,
     icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Pursuit of Knowledge",
-    description: "Join the quest for understanding and enlightenment.",
+    title: "OOP with Java",
+    description: "ITPC 29",
     header: <Skeleton />,
     icon: <IconArrowWaveRightUp className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Joy of Creation",
-    description: "Experience the thrill of bringing ideas to life.",
+    title: "Internet of Things",
+    description: "ITPE 19.",
     header: <Skeleton />,
     icon: <IconBoxAlignTopLeft className="h-4 w-4 text-neutral-500" />,
   },
