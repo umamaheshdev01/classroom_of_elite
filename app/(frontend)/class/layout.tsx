@@ -76,6 +76,12 @@ const sideNav= [
           disabled : false,
           label : '1'
         },
+        {
+          title : 'Chatbot',
+          href : 'chatbot',
+          disabled : false,
+          label : '1'
+        }
         
 
       ],

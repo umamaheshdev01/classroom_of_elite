@@ -10,16 +10,18 @@ const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 const Chat = () => {
-  const { data: session } = useSession();
+
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
+
+    const email = localStorage.getItem('user')
     const fetchMessages = async () => {
       try {
         const { data, error } = await supabase
           .from('chatgpt')
-          .select('*')
+          .select('*').eq('user_id',email)
           .order('created_at', { ascending: true });
 
         if (error) {
@@ -35,7 +37,7 @@ const Chat = () => {
     fetchMessages();
   }, []);
 
-
+  const em = localStorage.getItem('user')
 
   const handleSubmit = async (event) => {
  
@@ -52,19 +54,36 @@ const Chat = () => {
         throw error;
       }
 
-    //   setMessages([...messages, newMessage[0]]);
-      setMessage('');
+    
+
+    
+      
+
+   const msg = message
+   setMessage('');
+
+      fetch('http://127.0.0.1:8000/answer',{
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({question : msg , user : em}) 
+      })
+
+      
+
+
     } catch (error) {
       console.error('Error inserting message:', error.message);
     }
   };
 
   supabase
-.channel('room1')
+.channel('room2')
 .on('postgres_changes', { event: '*', schema: 'public', table: 'chatgpt' }, async (payload) => {
   const id = payload.new.id
   const em = localStorage.getItem('user');
-  const {data,error} = await supabase.from('chatgpt').select('*');
+  const {data,error} = await supabase.from('chatgpt').select('*').eq('id',id);
 
   console.log(data[0])
   setMessages(prev=>[...prev,data[0]])
@@ -87,7 +106,7 @@ const Chat = () => {
       <ul className="space-y-2">
         {messages.map((msg, index) => (
           msg.user_id === localStorage.getItem('user') && (
-            <li key={index} className={msg.author_id === 0 ? 'justify-end' : 'justify-start'}>
+            <li key={index} className={msg.role === 0 ? 'justify-end' : 'justify-start'}>
               <div className={`flex items-center ${msg.role === 0 ? 'justify-end' : 'justify-start'}`}>
                 <div className={`bg-gradient-to-br ${msg.role === 0 ? 'from-blue-500 to-purple-500' : 'from-gray-900 to-gray-700'} p-4 rounded-lg mr-4 max-w-md min-w-60 relative`}>
                   <p className="m-1 p-1 text-white">{msg.content}</p>
@@ -107,7 +126,7 @@ const Chat = () => {
             placeholder="Enter your message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={handleKeyPress} // Add this line to handle Enter key press
+            onKeyPress={handleKeyPress}
             className="w-full text-white-900 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           <Button type="submit" className="ml-2">Send</Button>
