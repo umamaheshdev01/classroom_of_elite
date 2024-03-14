@@ -65,12 +65,12 @@ const page = () => {
     <div className='max-w-5xl mx-auto px-8'>
       <br />
       <br />
-      <h1 className='text-xl ml-4 mr-3 inline'>Subjects</h1>
+     {data && <h1 className='text-xl ml-5 mr-3 inline font-bold'>Subjects</h1>}
 
       
       
       
-    <Button variant="outline"  onClick={()=>setFine(true)} className="mr-6 ml-1">Add</Button>
+   { data && <Button variant="outline"  onClick={()=>setFine(true)} className="mr-6 ml-1">Add</Button>}
        
 
       

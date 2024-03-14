@@ -59,20 +59,20 @@ const sideNav= [
       title: "",
       items: [
         {
-          title: "Lectures",
+          title: "Subjects",
           href: "lecture",
           disabled : false,
           label : '11'
         },
         {
-          title : 'Member list',
-          href :'/members',
+          title : 'Chat',
+          href :'chat',
           disabled : false,
           label : '20'
          },
         {
           title: "Leaderboard",
-          href: "/leader",
+          href: "leader",
           disabled : false,
           label : '1'
         },
