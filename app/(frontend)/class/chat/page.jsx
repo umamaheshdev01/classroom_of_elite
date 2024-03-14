@@ -19,7 +19,7 @@ const Chat = () => {
     const { data: session } = useSession();
     const { sendMessage } = useSocket();
     const [profilePicture, setProfilePicture] = useState('');
-      const messageTextIsEmpty = message.trim().length === 0;
+      // const messageTextIsEmpty = message.trim().length === 0;
     useEffect(() => {
       if (session && session.user && session.user.email) {
         const email = session.user.email;
@@ -39,6 +39,7 @@ const Chat = () => {
           const { data: messages, error } = await supabase
             .from('messages')
             .select('*,Users(*)')
+            .eq('chat_id',checkc)
             .order('created_at', { ascending: true }); // Adjust this according to your schema
           
           if (error) {
@@ -71,7 +72,7 @@ const Chat = () => {
     const handleSubmit = (event) => {
       const classc = localStorage.getItem('class')
       event.preventDefault();
-      if (messageTextIsEmpty) return;
+ 
       const newMessage = {
         content: message,
         id: session.user.email ,
@@ -81,10 +82,23 @@ const Chat = () => {
 
       sendMessage(JSON.stringify(newMessage));
       
-      setMessages((prevMessages) => [...prevMessages, message]);
+      // setMessages((prevMessages) => [...prevMessages, message]);
       
       setMessage('');
     };
+
+    
+supabase
+.channel('room1')
+.on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, async (payload) => {
+  const id = payload.new.id
+  
+  const {data,error} = await supabase.from('messages').select('*,Users(*)').eq('id',id)
+
+  console.log(data[0])
+  setMessages(prev=>[...prev,data[0]])
+})
+.subscribe()
   
     return (
       <div className="flex flex-col ml-[7rem] h-screen">
