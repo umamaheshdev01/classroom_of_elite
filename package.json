@@ -37,6 +37,7 @@
     "react": "^18",
     "react-dom": "^18",
     "simplex-noise": "^4.0.1",
+    "socket.io-client": "^4.7.4",
     "supabase": "^1.145.4",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
