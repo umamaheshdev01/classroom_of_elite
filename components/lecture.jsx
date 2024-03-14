@@ -7,7 +7,7 @@ function LectureCard({item}) {
         <div className="flex items-center gap-2">
           {/* <img src="/placeholder.svg" width="40" height="40" alt="Image" className="rounded-full" style={{ aspectRatio: '40 / 40', objectFit: 'cover' }} /> */}
           <div className="flex items-center gap-1 text-sm">
-            <div className="font-semibold">{item.Users.fname}</div>
+            <div className="font-semibold m-3">{item.Users.fname}</div>
             <div className="text-gray-500 dark:text-gray-400">1h</div>
           </div>
         </div>
