@@ -1,7 +1,7 @@
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 
-embedding = OpenAIEmbeddings(openai_api_key='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')
+embedding = OpenAIEmbeddings(openai_api_key='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')
 
 persist_directory = 'db/'
 def create_DB(splits):
