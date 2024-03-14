@@ -43,7 +43,7 @@ const Chat = () => {
  
 
     event.preventDefault();
-    if (!message.trim()) return; // Prevent sending empty messages
+    if (!message.trim()) return; 
 
     try {
       const { data: newMessage, error } = await supabase
