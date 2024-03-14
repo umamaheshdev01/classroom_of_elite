@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Leaderboard.module.css'; // Import CSS modules for styles
+import styles from './Leaderboard.module.css'; 
 
 const Card = ({ children }) => {
   return <div className={styles.card}>{children}</div>;

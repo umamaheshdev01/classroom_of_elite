@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client"
 import './globals.css'
 import { createClient } from '@supabase/supabase-js'
@@ -117,3 +118,14 @@ const Chat = () => {
   };
   
   export default Chat;
+=======
+import React from 'react'
+
+function page() {
+  return (
+    <div>page</div>
+  )
+}
+
+export default page
+>>>>>>> f1ebc89ea43080ddd82dae15b49dcc0cca7c57bc
