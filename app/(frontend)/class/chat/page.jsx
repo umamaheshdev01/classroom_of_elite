@@ -39,6 +39,7 @@ const Chat = () => {
           const { data: messages, error } = await supabase
             .from('messages')
             .select('*,Users(*)')
+            .eq('chat_id',checkc)
             .order('created_at', { ascending: true }); // Adjust this according to your schema
           
           if (error) {
@@ -81,14 +82,14 @@ const Chat = () => {
 
       sendMessage(JSON.stringify(newMessage));
       
-      setMessages((prevMessages) => [...prevMessages, message]);
+      // setMessages((prevMessages) => [...prevMessages, message]);
       
       setMessage('');
     };
   
     return (
       <div className="flex flex-col ml-[7rem] h-screen">
-        <div id="chat-container" className="flex-grow overflow-y-auto p-4">
+      {1 && (<div id="chat-container" className="flex-grow overflow-y-auto p-4">
           <ul className="space-y-2">
             {messages.map((msg, index) => (
              <li key={index} className={msg.author_id === session?.user.email ? 'justify-end' : 'justify-start'}>
@@ -105,7 +106,7 @@ const Chat = () => {
               </li> 
             ))}
           </ul>
-        </div>
+        </div>)}
         <form onSubmit={handleSubmit} className="p-4">
         <div className="flex items-center">
           <Input
