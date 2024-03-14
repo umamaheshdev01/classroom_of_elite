@@ -12,6 +12,7 @@ import { Button } from "../../../../@/components/ui/button";
 import { useSession } from 'next-auth/react'
 
 const Chat = () => {
+  const [isVisible, setIsVisible] = useState(false);
 
   const checkc = localStorage.getItem('class')
     const [messages, setMessages] = useState([]);
@@ -82,7 +83,7 @@ const Chat = () => {
       }).then(res=>res.json()).then(data=>{
         if(data.msg==='1')
         {
-            console.log('Bully')
+            setIsVisible(true)
         }
         else
         {
@@ -118,6 +119,30 @@ supabase
 .subscribe()
   
     return (
+
+
+  <>
+      {isVisible && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" onClick={()=>setIsVisible(prev=>!prev)}>
+          <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border-4 border-red-500 ring-4 ring-red-500 ring-opacity-50">
+            <button className="absolute top-0 right-0 mt-2 mr-2 text-white text-2xl" onClick={()=>setIsVisible(prev=>!prev)}>
+              &times;
+            </button>
+            <p className="text-white text-lg text-center">Bullying Detected!<br></br>
+            Please refrain from making any offensive comment
+            </p>
+          </div>
+        </div>
+      )}
+ 
+
+
+ 
+
+
+
+
+
       <div className="flex flex-col ml-[7rem] h-screen">
       {1 && (<div id="chat-container" className="flex-grow overflow-y-auto p-4">
           <ul className="space-y-2">
@@ -150,6 +175,7 @@ supabase
         </div>
       </form>
       </div>
+      </>
     );
   };
   
