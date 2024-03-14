@@ -4,6 +4,8 @@ import "./globals.css";
 import AuthProvider from "@/lib/AuthProvider";
 import { SocketProvider } from "./context/SocketProvider";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,7 +22,8 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <SocketProvider>
       <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider></body>
+        <AuthProvider>{children}</AuthProvider>
+        <ToastContainer /></body>
         </SocketProvider>
     </html>
   );

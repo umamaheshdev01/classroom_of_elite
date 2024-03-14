@@ -10,6 +10,7 @@ import { useEffect,useState } from "react";
 import { Input } from "../../../../@/components/ui/input";
 import { Button } from "../../../../@/components/ui/button";
 import { useSession } from 'next-auth/react'
+import {toast} from 'react-toastify'
 
 const Chat = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -84,6 +85,7 @@ const Chat = () => {
         if(data.msg==='1')
         {
             setIsVisible(true)
+            toast.error("XP decreased by 20")
         }
         else
         {
