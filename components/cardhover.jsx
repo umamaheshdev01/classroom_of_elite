@@ -1,16 +1,25 @@
+'use client'
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+
 
 export const HoverEffect = ({ items, className }) => {
+  const router = useRouter()
   let [hoveredIndex, setHoveredIndex] = useState(null);
+  const fun = (id)=>{
+    localStorage.setItem('lecture',id)
+    
+    router.push('/posts/post')
+  }
 
   return (
     <div className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10", className)}>
       {items.map((item, idx) => (
-        <Link
-          href={`posts`}
+        <div
+          onClick={()=>fun(item.id)}
           
           className="relative group block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
@@ -37,7 +46,7 @@ export const HoverEffect = ({ items, className }) => {
             <CardTitle>{item.subject}</CardTitle>
             <CardDescription>{item.Users.fname}</CardDescription>
           </Card>
-        </Link>
+        </div>
       ))}
     </div>
   );

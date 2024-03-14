@@ -5,6 +5,8 @@ const page = () => {
   return (
     <div>
         <LectureCard></LectureCard>
+        <LectureCard></LectureCard>
+        
     </div>
   )
 }

@@ -72,15 +72,32 @@ const Chat = () => {
     const handleSubmit = (event) => {
       const classc = localStorage.getItem('class')
       event.preventDefault();
+
+      fetch('http://127.0.0.1:8000/check',{
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({msg:message}) 
+      }).then(res=>res.json()).then(data=>{
+        if(data.msg==='1')
+        {
+            console.log('Bully')
+        }
+        else
+        {
+          const newMessage = {
+            content: message,
+            id: session.user.email ,
+            code : classc
+    
+          };
+    
+          sendMessage(JSON.stringify(newMessage));
+          
+        }
+      })
  
-      const newMessage = {
-        content: message,
-        id: session.user.email ,
-        code : classc
-
-      };
-
-      sendMessage(JSON.stringify(newMessage));
       
       // setMessages((prevMessages) => [...prevMessages, message]);
       
