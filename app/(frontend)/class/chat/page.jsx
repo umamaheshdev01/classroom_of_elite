@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client"
 import './globals.css'
 import { createClient } from '@supabase/supabase-js'
@@ -8,12 +7,13 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 import md5 from 'md5';
 import { useSocket } from "../../../context/SocketProvider";
 import { useEffect,useState } from "react";
-import { useSession } from "next-auth/react";
-import { AvatarImage, AvatarFallback, Avatar } from "../../../../@/components/ui/avatar";
 import { Input } from "../../../../@/components/ui/input";
 import { Button } from "../../../../@/components/ui/button";
+import { useSession } from 'next-auth/react'
 
 const Chat = () => {
+
+  const checkc = localStorage.getItem('class')
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const { data: session } = useSession();
@@ -38,7 +38,7 @@ const Chat = () => {
         try {
           const { data: messages, error } = await supabase
             .from('messages')
-            .select('*')
+            .select('*,Users(*)')
             .order('created_at', { ascending: true }); // Adjust this according to your schema
           
           if (error) {
@@ -46,6 +46,7 @@ const Chat = () => {
           }
   
           setMessages(messages);
+          console.log(messages)
         } catch (error) {
           console.error('Error fetching messages:', error.message);
         }
@@ -64,17 +65,20 @@ const Chat = () => {
   
       return `${hours}:${minutes}`;
     };
+
   
 
     const handleSubmit = (event) => {
+      const classc = localStorage.getItem('class')
       event.preventDefault();
       if (messageTextIsEmpty) return;
       const newMessage = {
         content: message,
-        id: session.user.email 
+        id: session.user.email ,
+        code : classc
+
       };
-    
-      // Send message
+
       sendMessage(JSON.stringify(newMessage));
       
       setMessages((prevMessages) => [...prevMessages, message]);
@@ -83,21 +87,22 @@ const Chat = () => {
     };
   
     return (
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col ml-[7rem] h-screen">
         <div id="chat-container" className="flex-grow overflow-y-auto p-4">
           <ul className="space-y-2">
             {messages.map((msg, index) => (
-              <li key={index} className={msg.author_id === session.user.email ? 'justify-end' : 'justify-start'}>
-                <div className={`flex items-center ${msg.author_id === session.user.email ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`bg-gradient-to-br ${msg.author_id === session.user.email ? 'from-blue-500 to-blue-300' : 'from-gray-900 to-gray-700'} p-4 rounded-lg mr-4 max-w-md min-w-60 relative`}>
-                    <p className=" p-1 text-white">{msg.content}</p>
-                    <span className="text-xs absolute bottom-1 right-1">{formatTimestamp(msg.created_at)}</span>
+             <li key={index} className={msg.author_id === session?.user.email ? 'justify-end' : 'justify-start'}>
+                <div className={`flex items-center ${msg.author_id === session?.user.email ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`bg-gradient-to-br ${msg.author_id === session?.user.email ? 'from-blue-500 to-blue-300' : 'from-gray-900 to-gray-700'} p-4 rounded-lg mr-4 max-w-md min-w-60 relative`}>
+                    <p className="m-1 p-1 text-white">{msg.content}</p>
+                    <span className="text-xs absolute  bottom-1 right-1">{formatTimestamp(msg.created_at)}</span>
+                    <span className="text-xs absolute font-bold top-1 left-2">{msg.Users.fname}</span>
                   </div>
                   {msg.author_id !== session.user.email && (
-                    <img src={profilePicture} alt="Profile Picture" className="rounded-full w-10 h-10" />
+                    <img src={msg.Users.image} alt="Profile Picture" className="rounded-full w-10 h-10" />
                   )}
                 </div>
-              </li>
+              </li> 
             ))}
           </ul>
         </div>
@@ -118,14 +123,6 @@ const Chat = () => {
   };
   
   export default Chat;
-=======
-import React from 'react'
 
-function page() {
-  return (
-    <div>page</div>
-  )
-}
 
-export default page
->>>>>>> f1ebc89ea43080ddd82dae15b49dcc0cca7c57bc
+

@@ -39,7 +39,8 @@ class SocketService {
                         const { data, error } = yield supabase.from('messages').insert([
                             {
                                 author_id: parsedMessage.id,
-                                content: parsedMessage.content
+                                content: parsedMessage.content,
+                                chat_id: parsedMessage.code
                             }
                         ]);
                         if (error) {

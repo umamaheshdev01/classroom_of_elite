@@ -35,7 +35,8 @@ class SocketService
                     const { data, error } = await supabase.from('messages').insert([
                       {
                         author_id: parsedMessage.id,
-                        content: parsedMessage.content
+                        content: parsedMessage.content,
+                        chat_id : parsedMessage.code
                       }
                     ]);
               
