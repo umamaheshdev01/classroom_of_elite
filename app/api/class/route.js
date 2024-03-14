@@ -40,6 +40,7 @@ export const GET = async(req,res)=>{
     
     //allClassesofaperson
     const {id} = Object.fromEntries(new URL(req.url).searchParams.entries());
+    console.log(id)
 
     const {data,error} = await supabase.from('Member').select('*,name:Class(*)').eq('user',id)
 

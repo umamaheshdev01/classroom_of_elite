@@ -1,15 +1,15 @@
 'use client';
 import React, { useState } from 'react';
-import { Label } from '../../../components/ui/label';
-import { Input } from '../../../components/ui/input';
-import { cn } from '../../../components/ui/cn';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 import { IconBrandGithub, IconBrandGoogle, IconBrandOnlyfans } from '@tabler/icons-react';
 import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-export function LoginFormDemo() {
-  const router = useRouter();
+export  function LoginFormDemo() {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -27,9 +27,9 @@ export function LoginFormDemo() {
         redirect: false,
       });
 
-      if(response.ok)
+      if(response?.ok)
       {
-       //
+         localStorage.setItem('user',email)
       }
       else
       {

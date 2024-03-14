@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { SignupFormDemo } from './Signup'
 
-import { BackgroundBeams } from '../../../components/ui/Beams'
+import { BackgroundBeams } from '@/components/bb'
 import { LoginFormDemo } from '../login/Login'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
@@ -14,14 +14,14 @@ const Page = () => {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      router.push('/main')
+      router.push('/classes')
     }
 
     setLoad(true)
   }, [status, router])
 
   return (
-    <div className="h-[100vh] w-full bg-opacity-60 bg-black relative flex flex-col items-center justify-center antialized">
+    <div className="h-[100vh] w-full bg-opacity-10 bg-black relative flex flex-col items-center justify-center antialized">
       <div className='w-[50%] z-50'>
         {load && <SignupFormDemo />}
       </div>

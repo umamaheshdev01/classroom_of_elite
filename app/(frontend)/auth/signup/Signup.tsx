@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { Label } from "../../../components/ui/label";
-import { Input } from "../../../components/ui/input";
-import { cn } from "../../../components/ui/cn";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import {
   IconBrandGithub,
   IconBrandGoogle,
@@ -57,10 +57,13 @@ export function SignupFormDemo() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      localStorage.setItem('user',email)
+
 
       await signIn('credentials', { email: email, password: password, redirect: false });
 
-      router.push('/main');
+     
+      router.push('/classes');
     } catch (error) {
       console.error(error);
       setError(true)

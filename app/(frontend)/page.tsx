@@ -1,15 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
-import { TypewriterEffectSmooth } from "../components/ui/typewriter";
-import { BackgroundBeams } from "../components/ui/Beams";
+import { TypewriterEffectSmooth } from "@/components/tr";
+import { BackgroundBeams } from "@/components/bb";
 import Link from "next/link";
 
 
-export default function TypewriterEffectSmoothDemo() {
 
-  useEffect(()=>{
-     document.documentElement.classList.add('dark')
-  },[])
+
+export default function TypewriterEffectSmoothDemo() {
 
   const words = [
     {
@@ -28,12 +26,6 @@ export default function TypewriterEffectSmoothDemo() {
   ];
   return (
 <>
-
-
-
-    {/* < div className="h-[100vh] w-full dark:bg-black bg-white  dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative flex items-center justify-center"> */}
-
-{/* <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div> */}
 
 <div className="h-[100vh] w-full r bg-neutral-950 relative flex flex-col items-center justify-center antialized">
 
@@ -58,3 +50,4 @@ export default function TypewriterEffectSmoothDemo() {
     </>
   );
 }
+
