@@ -19,6 +19,8 @@
 
 ![Classroom of Elite Screenshot](co3.png)
 
+![Classroom of Elite Screenshot](co4.png)
+
 ### Links
 
 - [Live Demo](#)
