@@ -17,7 +17,7 @@
 - **Chatbot**: Utilizes OpenAI API to provide a chatbot for solving student doubts.
 - **Class Resources**: Easy access to all class-related resources.
 
-![Classroom of Elite Screenshot](co2.png)
+![Classroom of Elite Screenshot](co3.png)
 
 ### Links
 
